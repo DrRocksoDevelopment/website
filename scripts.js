@@ -10,9 +10,9 @@ const terminalLines = document.getElementById('terminal-lines');
 
 // Конфигурация проектов
 const projects = {
-  ANTISLUT: { color: 'red', title: 'БОТ_ANTISLUT' },
-  BANHAMMER: { color: 'red', title: 'БОТ_BANHAMMER' },
-  FRAGENHAMMER: { color: 'emerald', title: 'БОТ_FRAGENHAMMER' }
+  ANTISLUT: { color: 'red', title: '@antishluh_rockzo_bot' },
+  BANHAMMER: { color: 'red', title: '@bunhummer_rockzo_bot' },
+  FRAGENHAMMER: { color: 'emerald', title: '@fragenhammer_rockzo_bot' }
 };
 
 // Открытие модального окна
