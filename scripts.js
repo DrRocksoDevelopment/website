@@ -27,9 +27,14 @@ const projects = {
     title: 'ФРАГЕНХАММЕР',
     username: '@fragenhammer_rockzo_bot',
     link: 'https://t.me/fragenhammer_rockzo_bot'
+  },
+  RADIOINFO: { 
+    color: 'emerland', 
+    title: 'РАДИОИНФО',
+    username: '@radioinfo_rockzo_bot',
+    link: 'https://t.me/books_bunny_chat'
   }
 };
-
 // Открытие модального окна
 document.querySelectorAll('[data-project]').forEach(button => {
   button.addEventListener('click', () => {
