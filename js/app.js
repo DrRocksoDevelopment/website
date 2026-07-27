@@ -1,0 +1,415 @@
+(function () {
+  'use strict';
+
+  var sections = document.querySelectorAll('.section[id]');
+  var navLinks = document.querySelectorAll('.nav-link');
+
+  function updateNav() {
+    var currentId = '';
+    var scrollY = window.scrollY;
+
+    sections.forEach(function (section) {
+      var top = section.offsetTop - 120;
+      var bottom = top + section.offsetHeight;
+      if (scrollY >= top && scrollY < bottom) {
+        currentId = section.id;
+      }
+    });
+
+    navLinks.forEach(function (link) {
+      var href = link.getAttribute('href');
+      if (href === '#' + currentId) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  window.addEventListener('resize', updateNav, { passive: true });
+  updateNav();
+
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  var heroBtn = document.querySelector('.hero-content .btn');
+  if (heroBtn) {
+    heroBtn.addEventListener('click', function (e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  function renderResearch(data) {
+    var container = document.getElementById('research-container');
+    if (!container) return;
+
+    (data.research || []).forEach(function (project) {
+      var card = document.createElement('div');
+      card.className = 'research-card';
+
+      var header = document.createElement('div');
+      header.className = 'research-card-header';
+
+      var name = document.createElement('h3');
+      name.className = 'research-card-name';
+      name.textContent = project.name;
+      header.appendChild(name);
+
+      var status = document.createElement('span');
+      status.className = 'research-card-status';
+      status.textContent = project.status;
+      header.appendChild(status);
+
+      card.appendChild(header);
+
+      var desc = document.createElement('p');
+      desc.className = 'research-card-description';
+      desc.textContent = project.description;
+      card.appendChild(desc);
+
+      var question = document.createElement('blockquote');
+      question.className = 'research-card-question';
+      question.textContent = project.question;
+      card.appendChild(question);
+
+      var link = document.createElement('a');
+      link.className = 'btn btn-text';
+      if (project.url) {
+        link.href = project.url;
+        if (project.url.startsWith('http')) {
+          link.setAttribute('target', '_blank');
+          link.setAttribute('rel', 'noopener noreferrer');
+        }
+      } else {
+        link.setAttribute('role', 'button');
+        link.setAttribute('tabindex', '0');
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          openModal(project.name, project.status, project.question, project.details, project.links);
+        });
+      }
+      link.textContent = 'Подробнее \u2192';
+      card.appendChild(link);
+
+      container.appendChild(card);
+    });
+
+    setTimeout(function () {
+      observeElements('.research-card', 'visible');
+    }, 50);
+  }
+
+  function renderDevelopments(data) {
+    var container = document.getElementById('developments-container');
+    if (!container) return;
+
+    (data.developments || []).forEach(function (dev) {
+      var card = document.createElement('div');
+      card.className = 'development-card';
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+
+      var header = document.createElement('div');
+      header.className = 'development-header';
+
+      var name = document.createElement('h3');
+      name.className = 'development-name';
+      name.textContent = dev.name;
+      header.appendChild(name);
+
+      var status = document.createElement('span');
+      status.className = 'development-status';
+      status.textContent = dev.status;
+      header.appendChild(status);
+
+      card.appendChild(header);
+
+      var desc = document.createElement('p');
+      desc.className = 'development-description';
+      desc.textContent = dev.description;
+      card.appendChild(desc);
+
+      card.addEventListener('click', function () {
+        openModal(dev.name, dev.status, null, dev.details, dev.links);
+      });
+
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(dev.name, dev.status, null, dev.details, dev.links);
+        }
+      });
+
+      container.appendChild(card);
+    });
+
+    setTimeout(function () {
+      observeElements('.development-card', 'visible');
+    }, 50);
+  }
+
+  function renderSolutions(data) {
+    var container = document.getElementById('solutions-container');
+    if (!container) return;
+
+    (data.solutions || []).forEach(function (sol) {
+      var card = document.createElement('div');
+      card.className = 'solution-card';
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+
+      var yearSpan = document.createElement('span');
+      yearSpan.className = 'solution-year';
+      yearSpan.textContent = sol.year;
+      card.appendChild(yearSpan);
+
+      var name = document.createElement('span');
+      name.className = 'solution-name';
+      name.textContent = sol.name;
+      card.appendChild(name);
+
+      var desc = document.createElement('p');
+      desc.className = 'solution-desc';
+      desc.textContent = sol.description;
+      card.appendChild(desc);
+
+      if (sol.tech) {
+        var tech = document.createElement('span');
+        tech.className = 'solution-tech';
+        tech.textContent = sol.tech;
+        card.appendChild(tech);
+      }
+
+      card.addEventListener('click', function () {
+        openModal(sol.name, null, null, sol.details, sol.links);
+      });
+
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(sol.name, null, null, sol.details, sol.links);
+        }
+      });
+
+      container.appendChild(card);
+    });
+
+    setTimeout(function () {
+      observeElements('.solution-card', 'visible');
+    }, 50);
+  }
+
+  function renderProcess(data) {
+    var container = document.getElementById('process-container');
+    if (!container) return;
+
+    var steps = data.process || [];
+
+    steps.forEach(function (step, index) {
+      var stepEl = document.createElement('div');
+      stepEl.className = 'process-step';
+
+      var num = document.createElement('span');
+      num.className = 'process-num';
+      num.textContent = step.num;
+      stepEl.appendChild(num);
+
+      var label = document.createElement('span');
+      label.className = 'process-label';
+      label.textContent = step.label;
+      stepEl.appendChild(label);
+
+      container.appendChild(stepEl);
+
+      if (index < steps.length - 1) {
+        var line = document.createElement('div');
+        line.className = 'process-line';
+        container.appendChild(line);
+      }
+    });
+
+    setTimeout(function () {
+      setupProcessAnimation();
+    }, 50);
+  }
+
+  function renderUnfinished(data) {
+    var container = document.getElementById('unfinished-container');
+    if (!container) return;
+
+    (data.unfinished || data.researchUnfinished || []).forEach(function (item) {
+      var el = document.createElement('div');
+      el.className = 'unfinished-item';
+
+      var num = document.createElement('span');
+      num.className = 'unfinished-num';
+      num.textContent = item.num;
+      el.appendChild(num);
+
+      var body = document.createElement('div');
+      body.className = 'unfinished-body';
+
+      var title = document.createElement('h3');
+      title.className = 'unfinished-title';
+      title.textContent = item.title;
+      body.appendChild(title);
+
+      var desc = document.createElement('p');
+      desc.className = 'unfinished-desc';
+      desc.textContent = item.description;
+      body.appendChild(desc);
+
+      el.appendChild(body);
+      container.appendChild(el);
+    });
+
+    setTimeout(function () {
+      observeElements('.unfinished-item', 'visible');
+    }, 50);
+  }
+
+  function renderContacts(data) {
+    var container = document.getElementById('contacts-container');
+    if (!container) return;
+
+    (data.contacts || []).forEach(function (contact) {
+      var link = document.createElement('a');
+      link.className = 'contact-link';
+      link.href = contact.url || '#';
+      link.textContent = contact.label;
+      container.appendChild(link);
+    });
+  }
+
+  function loadJSON(url) {
+  return new Promise(function (resolve, reject) {
+    if (location.protocol === 'file:') {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200 || xhr.status === 0) {
+            try {
+              resolve(JSON.parse(xhr.responseText));
+            } catch (e) {
+              reject(e);
+            }
+          } else {
+            reject(new Error('Failed to load ' + url));
+          }
+        }
+      };
+      xhr.send();
+    } else {
+      fetch(url)
+        .then(function (res) {
+          if (!res.ok) throw new Error('Failed to load ' + url);
+          return res.json();
+        })
+        .then(resolve)
+        .catch(reject);
+    }
+  });
+}
+
+loadJSON('data/site.json')
+  .then(function (data) {
+    renderResearch(data);
+    renderDevelopments(data);
+    renderSolutions(data);
+    renderProcess(data);
+    renderUnfinished(data);
+    renderContacts(data);
+  })
+  .catch(function (err) {
+    console.error(err);
+    var ids = ['research-container', 'developments-container', 'solutions-container', 'process-container', 'unfinished-container', 'contacts-container'];
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && !el.children.length) {
+        var msg = document.createElement('p');
+        msg.style.cssText = 'color:#666;font-size:14px;padding:32px 0;';
+        msg.textContent = 'Не удалось загрузить данные. Для локальной разработки используйте простой HTTP-сервер: npx serve .';
+        el.appendChild(msg);
+      }
+    });
+  });
+
+/* ---- Modal ---- */
+
+var modal = document.getElementById('modal');
+var modalBody = modal ? modal.querySelector('.modal-body') : null;
+var modalClose = modal ? modal.querySelector('.modal-close') : null;
+var modalBackdrop = modal ? modal.querySelector('.modal-backdrop') : null;
+
+function openModal(title, status, question, details, links) {
+  if (!modal || !modalBody) return;
+
+  var html = '<h2>' + title + '</h2>';
+  if (status) {
+    html += '<span class="project-status">' + status + '</span>';
+  }
+  if (question) {
+    html += '<blockquote class="modal-question">' + question + '</blockquote>';
+  }
+  if (details) {
+    html += '<div class="modal-details">' + details + '</div>';
+  }
+  if (links && links.length) {
+    html += '<div class="modal-links">';
+    links.forEach(function (link) {
+      html += '<a href="' + link.url + '" class="modal-link" target="_blank" rel="noopener noreferrer">' + link.text + '</a>';
+    });
+    html += '</div>';
+  }
+  modalBody.innerHTML = html;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  if (!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+if (modalClose) {
+  modalClose.addEventListener('click', closeModal);
+}
+
+if (modalBackdrop) {
+  modalBackdrop.addEventListener('click', closeModal);
+}
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+    closeModal();
+  }
+});
+
+document.querySelectorAll('.btn-text').forEach(function (link) {
+  if (link.getAttribute('href') === '#') {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+    });
+  }
+});
+
+setupSectionLines();
+observeElements('.section:not(.hero)', 'visible');
+
+})();

@@ -1,0 +1,28 @@
+:root {
+  --color-bg: #FFFFFF;
+  --color-bg-secondary: #F7F7F7;
+  --color-text: #202020;
+  --color-text-secondary: #666666;
+  --color-accent: #2563EB;
+  --color-border: #E5E5E5;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --max-width: 800px;
+  --max-width-wide: 960px;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 128px;
+
+  --nav-height: 60px;
+
+  --easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 250ms;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rockzo — Независимая инженерная лаборатория</title>
+  <meta name="description" content="Rockzo — инженерная лаборатория, которая занимается исследованиями, проектированием и созданием сложных технических систем.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">ROCKZO</a>
+      <div class="nav-links">
+        <a href="#research" class="nav-link">Исследования</a>
+        <a href="#developments" class="nav-link">Разработки</a>
+        <a href="#solutions" class="nav-link">Решения</a>
+        <a href="#approach" class="nav-link">Подход</a>
+        <a href="#contacts" class="nav-link">Контакты</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="section hero" id="hero">
+      <div class="hero-content">
+        <h1 class="hero-logo">ROCKZO</h1>
+        <p class="hero-subtitle">Независимая инженерная лаборатория</p>
+        <blockquote class="hero-description">
+          Исследование, проектирование и создание сложных технических систем.
+        </blockquote>
+        <p class="hero-intro">Rockzo — независимая инженерная лаборатория. Лаборатория объединяет исследования, программные продукты, аппаратные разработки и инженерные эксперименты. Главная ценность — не технологии, а умение работать со сложными системами.</p>
+        <a href="#research" class="btn btn-outline">Исследования</a>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2 class="section-title">Исследования</h2>
+        <div class="section-line"></div>
+      </div>
+      <div id="research-container"></div>
+    </section>
+
+    <section class="section" id="developments">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <h2 class="section-title">Разработки</h2>
+        <div class="section-line"></div>
+      </div>
+      <div id="developments-container"></div>
+    </section>
+
+    <section class="section" id="solutions">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <h2 class="section-title">Завершённые решения</h2>
+        <div class="section-line"></div>
+      </div>
+      <div id="solutions-container"></div>
+    </section>
+
+    <section class="section" id="approach">
+      <div class="section-header">
+        <span class="section-number">04</span>
+        <h2 class="section-title">Подход к работе</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="process" id="process-container"></div>
+    </section>
+
+    <section class="section" id="unfinished">
+      <div class="section-header">
+        <span class="section-number">05</span>
+        <h2 class="section-title">Незавершённые исследования</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <p class="research-intro">
+        Не каждое исследование становится отдельным продуктом, но каждое влияет на последующие проекты.
+      </p>
+
+      <div class="unfinished-list" id="unfinished-container"></div>
+    </section>
+
+    <section class="section" id="contacts">
+      <div class="section-header">
+        <span class="section-number">06</span>
+        <h2 class="section-title">Связаться</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="contact-links" id="contacts-container"></div>
+    </section>
+
+  </main>
+
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p class="footer-text">© 2026 Rockzo</p>
+  </footer>
+
+  <script src="js/observer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
