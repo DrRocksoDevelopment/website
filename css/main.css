@@ -96,6 +96,26 @@ img {
   color: var(--color-accent);
 }
 
+/* Loading */
+
+.loading-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+}
+
 /* Sections */
 
 .section-header {
@@ -210,11 +230,6 @@ img {
 
 /* Research cards (large) */
 
-.research-list {
-  display: flex;
-  flex-direction: column;
-}
-
 .research-card {
   padding: var(--space-xl) var(--space-lg);
   border-bottom: 1px solid var(--color-border);
@@ -279,11 +294,6 @@ img {
 
 /* Development cards (medium) */
 
-.developments-list {
-  display: flex;
-  flex-direction: column;
-}
-
 .development-card {
   padding: var(--space-lg) var(--space-lg);
   border-bottom: 1px solid var(--color-border);
@@ -340,12 +350,6 @@ img {
 }
 
 /* Solutions cards (compact) */
-
-.solutions-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
 
 .solution-card {
   padding: var(--space-md) var(--space-lg);

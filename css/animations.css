@@ -36,26 +36,8 @@
   width: 100%;
 }
 
-.project-card {
-  padding: var(--space-xl) 0;
-  border-bottom: 1px solid var(--color-border);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 300ms var(--easing), transform 300ms var(--easing);
-}
-
-.project-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.project-card:last-of-type {
-  border-bottom: none;
-}
-
 .research-card:hover,
-.development-card:hover,
-.project-card:hover {
+.development-card:hover {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 

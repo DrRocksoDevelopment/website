@@ -1,13 +1,13 @@
-var observerOptions = {
+const observerOptions = {
   threshold: 0.1,
   rootMargin: '0px 0px -40px 0px'
 };
 
 function observeElements(selector, className) {
-  var elements = document.querySelectorAll(selector);
+  const elements = document.querySelectorAll(selector);
   if (!elements.length) return;
 
-  var observer = new IntersectionObserver(function (entries) {
+  const observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add(className);
@@ -22,12 +22,12 @@ function observeElements(selector, className) {
 }
 
 function setupProcessAnimation() {
-  var processObserver = new IntersectionObserver(function (entries) {
+  const processObserver = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
 
-        var prevLine = entry.target.previousElementSibling;
+        const prevLine = entry.target.previousElementSibling;
         if (prevLine && prevLine.classList.contains('process-line')) {
           prevLine.classList.add('drawn');
         }
@@ -43,10 +43,10 @@ function setupProcessAnimation() {
 }
 
 function setupSectionLines() {
-  var sectionObserver = new IntersectionObserver(function (entries) {
+  const sectionObserver = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
-        var line = entry.target.querySelector('.section-line');
+        const line = entry.target.querySelector('.section-line');
         if (line) {
           line.classList.add('drawn');
         }
